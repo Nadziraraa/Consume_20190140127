@@ -15,6 +15,16 @@ function signOut() {
     });
 }
 
+$(document).ready(function() {
+    $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#dataTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+  });
+  
+
 $("#dataTable").ready(function () {
     var tabel = document.getElementById("dataTable")
     getAll().then(response => {
@@ -26,16 +36,16 @@ $("#dataTable").ready(function () {
             const td3 = tr.insertCell();
             const td4 = tr.insertCell();
             const td5 = tr.insertCell();
-            const td6 = tr.insertCell();
+
+        
             console.log(response[i])
-            td1.innerHTML = response[i].idcust
-            td2.innerHTML = response[i].nama
-            td3.innerHTML = response[i].nohp
-            td4.innerHTML = response[i].jenis
-            td5.innerHTML = response[i].jumlah
-            td6.innerHTML = `<div class ="justify content-center">
-            <a class="btn ms-2" style="background-color: #858ab3; border:none;" href="updateData.html?idcust=${response[i].idcust}">Edit</a>
-            <button type ="button" class="btn ms-2" style="background-color: #858ab3; border:none;" onclick="del(${response[i].idcust});">Delete</button>
+            td1.innerHTML = response[i]['id'];
+            td2.innerHTML = response[i]['namaBunga'];
+            td3.innerHTML = response[i]['warnaBunga'];
+            td4.innerHTML = response[i]['jenisBunga'];
+            td5.innerHTML = `<div class ="justify content-center">
+            <a class="btn ms-2" style="background-color: #858ab3; border:none;" href="updateData.html?id=${response[i].id}">Edit</a>
+            <button type ="button" class="btn ms-2" style="background-color: #858ab3; border:none;" onclick="del(${response[i].id});">Delete</button>
             </div>`
             }
         }
